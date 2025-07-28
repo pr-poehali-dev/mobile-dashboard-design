@@ -22,31 +22,31 @@ export default function Index() {
           id: "sleep_hours",
           question: "Сколько часов ты спал прошлой ночью?",
           type: "scale",
-          options: ["Очень плохо", "Плохо", "Нормально", "Хорошо", "Очень хорошо"]
+          options: ["1–4 часа", "5–6 часов", "7–8 часов", "9 часов или больше"]
         },
         {
           id: "sleep_quality",
           question: "Насколько качественным был твой сон?",
           type: "scale",
-          options: ["Плохо", "Нормально", "Хорошо"]
+          options: ["Очень плохо", "Плохо", "Нормально", "Хорошо", "Очень хорошо"]
         },
         {
           id: "sleep_fall_asleep",
           question: "Как быстро ты заснул?",
           type: "scale",
-          options: ["Плохо", "Нормально", "Хорошо"]
+          options: ["Долго (больше 30 минут)", "Около 15–30 минут", "Быстро (менее 15 минут)"]
         },
         {
           id: "sleep_wake_time",
           question: "Во сколько ты проснулся?",
           type: "scale",
-          options: ["Плохо", "Нормально", "Хорошо"]
+          options: ["До 6:00", "Между 6:00 и 7:00", "Между 7:00 и 8:00", "После 8:00"]
         },
         {
           id: "sleep_night_waking",
           question: "Просыпался ли ты ночью?",
-          type: "binary",
-          options: ["Нет", "Да"]
+          type: "scale",
+          options: ["Нет, не просыпался", "1 раз", "2 раза", "3 раза или больше"]
         }
       ]
     },
@@ -60,7 +60,7 @@ export default function Index() {
           id: "mood_today",
           question: "Какое у тебя сегодня настроение?",
           type: "scale",
-          options: ["Очень плохо", "Плохо", "Нормально", "Хорошо", "Очень хорошо"]
+          options: ["Очень плохое", "Плохое", "Нормальное", "Хорошее", "Очень хорошее"]
         },
         {
           id: "mood_stress",
@@ -78,7 +78,7 @@ export default function Index() {
           id: "mood_motivation",
           question: "Насколько ты мотивирован сегодня?",
           type: "scale",
-          options: ["Плохо", "Нормально", "Хорошо"]
+          options: ["Совсем не мотивирован", "Слабо мотивирован", "Нормально", "Сильно мотивирован", "Очень сильно мотивирован"]
         },
         {
           id: "mood_anxiety",
@@ -98,13 +98,13 @@ export default function Index() {
           id: "energy_level",
           question: "Сколько у тебя энергии сейчас?",
           type: "scale",
-          options: ["Очень плохо", "Плохо", "Нормально", "Хорошо", "Очень хорошо"]
+          options: ["Очень мало", "Мало", "Нормально", "Много", "Очень много"]
         },
         {
           id: "energy_focus",
           question: "Насколько хорошо ты можешь сосредоточиться?",
           type: "scale",
-          options: ["Плохо", "Нормально", "Хорошо"]
+          options: ["Плохо", "Нормально", "Хорошо", "Очень хорошо"]
         },
         {
           id: "energy_tired",
@@ -136,7 +136,7 @@ export default function Index() {
           id: "nutrition_meals",
           question: "Сколько приёмов пищи у тебя было?",
           type: "scale",
-          options: ["Очень плохо", "Плохо", "Нормально", "Хорошо", "Очень хорошо"]
+          options: ["1–2 раза", "3 раза", "4 раза или больше"]
         },
         {
           id: "nutrition_overeating",
@@ -168,7 +168,7 @@ export default function Index() {
           id: "activity_steps",
           question: "Сколько шагов ты прошёл?",
           type: "scale",
-          options: ["Очень плохо", "Плохо", "Нормально", "Хорошо", "Очень хорошо"]
+          options: ["Менее 3 000", "3 000–5 000", "5 000–7 000", "7 000–10 000", "Больше 10 000"]
         },
         {
           id: "activity_stretching",
@@ -180,7 +180,7 @@ export default function Index() {
           id: "activity_active_day",
           question: "Насколько активным был твой день?",
           type: "scale",
-          options: ["Плохо", "Нормально", "Хорошо"]
+          options: ["Пассивный", "Нормальный", "Активный", "Очень активный"]
         }
       ]
     },
@@ -200,7 +200,7 @@ export default function Index() {
           id: "social_pleasant",
           question: "Насколько приятным было общение?",
           type: "scale",
-          options: ["Плохо", "Нормально", "Хорошо"]
+          options: ["Плохо", "Нормально", "Хорошо", "Очень хорошо"]
         },
         {
           id: "social_conflicts",
@@ -232,13 +232,13 @@ export default function Index() {
           id: "habits_screen_time",
           question: "Сколько времени ты провёл за экранами?",
           type: "scale",
-          options: ["Очень плохо", "Плохо", "Нормально", "Хорошо", "Очень хорошо"]
+          options: ["Менее 2 часов", "2–4 часа", "4–6 часов", "6–8 часов", "Больше 8 часов"]
         },
         {
           id: "habits_productivity",
           question: "Насколько продуктивным был твой день?",
           type: "scale",
-          options: ["Плохо", "Нормально", "Хорошо"]
+          options: ["Совсем не продуктивным", "Слабо продуктивным", "Нормально", "Продуктивным", "Очень продуктивным"]
         }
       ]
     }
