@@ -1,15 +1,32 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { Switch } from "@/components/ui/switch";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import Icon from "@/components/ui/icon";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Index() {
   const [showSurvey, setShowSurvey] = useState(false);
   const [showCategoryDetail, setShowCategoryDetail] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
   const [currentCategory, setCurrentCategory] = useState(0);
   const [answers, setAnswers] = useState<Record<string, any>>({});
+  const [userName, setUserName] = useState("Анна");
+  const [editingName, setEditingName] = useState(false);
+  const [tempName, setTempName] = useState(userName);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Apply dark mode to document
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
 
   const surveyData = [
     {
@@ -270,6 +287,16 @@ export default function Index() {
     setShowSurvey(true);
   };
 
+  const handleSaveName = () => {
+    setUserName(tempName);
+    setEditingName(false);
+  };
+
+  const handleCancelEdit = () => {
+    setTempName(userName);
+    setEditingName(false);
+  };
+
   const handleAnswer = (answer: string, answerIndex: number) => {
     const questionId = currentQuestion.id;
     setAnswers(prev => ({
@@ -305,6 +332,117 @@ export default function Index() {
     };
     return colorMap[color as keyof typeof colorMap] || "bg-gray-100 text-gray-600";
   };
+
+  // Settings View
+  if (showSettings) {
+    return (
+      <div className={`min-h-screen p-4 ${isDarkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
+        <div className="max-w-md mx-auto space-y-6">
+          {/* Header */}
+          <div className="flex items-center justify-between pt-8 pb-4">
+            <button 
+              onClick={() => setShowSettings(false)}
+              className={`p-2 rounded-full transition-colors ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+            >
+              <Icon name="ArrowLeft" size={20} className={isDarkMode ? 'text-gray-300' : 'text-gray-600'} />
+            </button>
+            <div className="text-center">
+              <h2 className={`text-lg font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Настройки</h2>
+            </div>
+            <div className="w-8"></div>
+          </div>
+
+          {/* User Name Section */}
+          <Card className={`p-6 shadow-sm border-0 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <Label className={`text-base font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                  Имя пользователя
+                </Label>
+                {!editingName && (
+                  <Button
+                    onClick={() => setEditingName(true)}
+                    variant="outline"
+                    size="sm"
+                    className={isDarkMode ? 'border-gray-600 text-gray-300 hover:bg-gray-700' : ''}
+                  >
+                    Изменить
+                  </Button>
+                )}
+              </div>
+              
+              {editingName ? (
+                <div className="space-y-3">
+                  <Input
+                    value={tempName}
+                    onChange={(e) => setTempName(e.target.value)}
+                    placeholder="Введите новое имя"
+                    className={isDarkMode ? 'bg-gray-700 border-gray-600 text-white' : ''}
+                  />
+                  <div className="flex space-x-2">
+                    <Button
+                      onClick={handleSaveName}
+                      size="sm"
+                      className="flex-1"
+                    >
+                      Сохранить
+                    </Button>
+                    <Button
+                      onClick={handleCancelEdit}
+                      variant="outline"
+                      size="sm"
+                      className={`flex-1 ${isDarkMode ? 'border-gray-600 text-gray-300 hover:bg-gray-700' : ''}`}
+                    >
+                      Отмена
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <p className={`text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                  {userName}
+                </p>
+              )}
+            </div>
+          </Card>
+
+          {/* Theme Toggle Section */}
+          <Card className={`p-6 shadow-sm border-0 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className={`text-base font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                  Темная тема
+                </h3>
+                <p className={`text-sm mt-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                  Переключить на темное оформление
+                </p>
+              </div>
+              <Switch
+                checked={isDarkMode}
+                onCheckedChange={setIsDarkMode}
+              />
+            </div>
+          </Card>
+
+          {/* Additional Settings */}
+          <Card className={`p-6 shadow-sm border-0 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+            <div className="space-y-4">
+              <h3 className={`text-base font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                О приложении
+              </h3>
+              <div className="space-y-2">
+                <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                  Версия: 1.0.0
+                </p>
+                <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                  Приложение для отслеживания здоровья и самочувствия
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   // Category Detail View
   if (showCategoryDetail) {
@@ -478,20 +616,23 @@ export default function Index() {
 
   // Dashboard View
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
+    <div className={`min-h-screen p-4 ${isDarkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
       <div className="max-w-md mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between pt-8 pb-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
-              Привет, Анна!
+            <h1 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              Привет, {userName}!
             </h1>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className={`text-sm mt-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
               28 июля 2025
             </p>
           </div>
-          <button className="p-2 rounded-full hover:bg-gray-200 transition-colors">
-            <Icon name="Settings" size={20} className="text-gray-600" />
+          <button 
+            onClick={() => setShowSettings(true)}
+            className={`p-2 rounded-full transition-colors ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+          >
+            <Icon name="Settings" size={20} className={isDarkMode ? 'text-gray-300' : 'text-gray-600'} />
           </button>
         </div>
 
@@ -503,13 +644,13 @@ export default function Index() {
               onClick={() => handleCategoryClick(index)}
               className="text-left"
             >
-              <Card className="p-4 bg-white shadow-sm border-0 hover:shadow-md transition-shadow">
+              <Card className={`p-4 shadow-sm border-0 hover:shadow-md transition-shadow ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
                 <div className="flex flex-col items-center space-y-2">
                   <div className={`p-2 rounded-lg ${getColorClasses(metric.color)}`}>
                     <Icon name={metric.icon as any} size={24} />
                   </div>
-                  <span className="text-sm font-medium text-gray-700">{metric.category}</span>
-                  <span className="text-lg font-bold text-gray-900">{metric.percentage}%</span>
+                  <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{metric.category}</span>
+                  <span className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{metric.percentage}%</span>
                   <Progress value={metric.percentage} className="h-2 w-full" />
                 </div>
               </Card>
@@ -522,18 +663,18 @@ export default function Index() {
           onClick={() => handleCategoryClick(6)}
           className="w-full text-left"
         >
-          <Card className="p-4 bg-white shadow-sm border-0 hover:shadow-md transition-shadow">
+          <Card className={`p-4 shadow-sm border-0 hover:shadow-md transition-shadow ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center space-x-3">
                 <div className="p-2 bg-indigo-100 rounded-lg">
                   <Icon name="CheckCircle" size={20} className="text-indigo-600" />
                 </div>
-                <span className="text-sm font-medium text-gray-700">Привычки</span>
+                <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Привычки</span>
               </div>
-              <span className="text-lg font-bold text-gray-900">90%</span>
+              <span className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>90%</span>
             </div>
             <Progress value={90} className="h-2" />
-            <p className="text-xs text-gray-500 mt-2">5 из 6 привычек выполнено сегодня</p>
+            <p className={`text-xs mt-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>5 из 6 привычек выполнено сегодня</p>
           </Card>
         </button>
 
@@ -549,17 +690,20 @@ export default function Index() {
         </div>
 
         {/* Bottom Navigation Placeholder */}
-        <div className="flex justify-around items-center py-4 bg-white rounded-2xl shadow-sm">
+        <div className={`flex justify-around items-center py-4 rounded-2xl shadow-sm ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
           <button className="p-3 rounded-xl bg-blue-600 text-white">
             <Icon name="Home" size={20} />
           </button>
-          <button className="p-3 rounded-xl text-gray-400 hover:text-gray-600">
+          <button className={`p-3 rounded-xl transition-colors ${isDarkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-400 hover:text-gray-600'}`}>
             <Icon name="BarChart3" size={20} />
           </button>
-          <button className="p-3 rounded-xl text-gray-400 hover:text-gray-600">
+          <button className={`p-3 rounded-xl transition-colors ${isDarkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-400 hover:text-gray-600'}`}>
             <Icon name="User" size={20} />
           </button>
-          <button className="p-3 rounded-xl text-gray-400 hover:text-gray-600">
+          <button 
+            onClick={() => setShowSettings(true)}
+            className={`p-3 rounded-xl transition-colors ${isDarkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-400 hover:text-gray-600'}`}
+          >
             <Icon name="Settings" size={20} />
           </button>
         </div>
