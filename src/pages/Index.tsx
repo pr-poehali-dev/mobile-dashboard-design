@@ -85,80 +85,89 @@ export default function Index() {
           </button>
         </div>
 
-        {/* Metrics Dashboard */}
-        <Card className="p-6 bg-white shadow-sm border-0">
-          <div className="flex justify-between items-center space-x-8">
-            <CircularProgress
-              percentage={75}
-              color="#10B981"
-              label="Био"
-            />
-            <CircularProgress
-              percentage={60}
-              color="#2563EB"
-              label="Психо"
-            />
-            <CircularProgress
-              percentage={80}
-              color="#F59E0B"
-              label="Социо"
-            />
-          </div>
-        </Card>
-
-        {/* Quick Stats */}
+        {/* Main Metrics Grid */}
         <div className="grid grid-cols-2 gap-4">
           <Card className="p-4 bg-white shadow-sm border-0">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-green-100 rounded-lg">
-                <Icon name="Heart" size={20} className="text-green-600" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Пульс</p>
-                <p className="text-lg font-semibold text-gray-900">72 уд/мин</p>
-              </div>
-            </div>
-          </Card>
-          
-          <Card className="p-4 bg-white shadow-sm border-0">
-            <div className="flex items-center space-x-3">
+            <div className="flex flex-col items-center space-y-2">
               <div className="p-2 bg-blue-100 rounded-lg">
-                <Icon name="Brain" size={20} className="text-blue-600" />
+                <Icon name="Moon" size={24} className="text-blue-600" />
               </div>
-              <div>
-                <p className="text-sm text-gray-500">Настроение</p>
-                <p className="text-lg font-semibold text-gray-900">7/10</p>
-              </div>
-            </div>
-          </Card>
-        </div>
-
-        {/* Additional metrics */}
-        <div className="space-y-4">
-          <Card className="p-4 bg-white shadow-sm border-0">
-            <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium text-gray-700">Сон</span>
-              <span className="text-sm text-gray-500">7ч 30м</span>
+              <span className="text-lg font-bold text-gray-900">85%</span>
+              <Progress value={85} className="h-2 w-full" />
             </div>
-            <Progress value={85} className="h-2" />
           </Card>
 
           <Card className="p-4 bg-white shadow-sm border-0">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-700">Активность</span>
-              <span className="text-sm text-gray-500">8,540 шагов</span>
+            <div className="flex flex-col items-center space-y-2">
+              <div className="p-2 bg-yellow-100 rounded-lg">
+                <Icon name="Smile" size={24} className="text-yellow-600" />
+              </div>
+              <span className="text-sm font-medium text-gray-700">Настроение</span>
+              <span className="text-lg font-bold text-gray-900">70%</span>
+              <Progress value={70} className="h-2 w-full" />
             </div>
-            <Progress value={68} className="h-2" />
           </Card>
 
           <Card className="p-4 bg-white shadow-sm border-0">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-700">Вода</span>
-              <span className="text-sm text-gray-500">1.8л / 2.5л</span>
+            <div className="flex flex-col items-center space-y-2">
+              <div className="p-2 bg-green-100 rounded-lg">
+                <Icon name="Zap" size={24} className="text-green-600" />
+              </div>
+              <span className="text-sm font-medium text-gray-700">Энергия</span>
+              <span className="text-lg font-bold text-gray-900">60%</span>
+              <Progress value={60} className="h-2 w-full" />
             </div>
-            <Progress value={72} className="h-2" />
+          </Card>
+
+          <Card className="p-4 bg-white shadow-sm border-0">
+            <div className="flex flex-col items-center space-y-2">
+              <div className="p-2 bg-orange-100 rounded-lg">
+                <Icon name="Apple" size={24} className="text-orange-600" />
+              </div>
+              <span className="text-sm font-medium text-gray-700">Питание</span>
+              <span className="text-lg font-bold text-gray-900">75%</span>
+              <Progress value={75} className="h-2 w-full" />
+            </div>
+          </Card>
+
+          <Card className="p-4 bg-white shadow-sm border-0">
+            <div className="flex flex-col items-center space-y-2">
+              <div className="p-2 bg-red-100 rounded-lg">
+                <Icon name="Activity" size={24} className="text-red-600" />
+              </div>
+              <span className="text-sm font-medium text-gray-700">Физ. активность</span>
+              <span className="text-lg font-bold text-gray-900">80%</span>
+              <Progress value={80} className="h-2 w-full" />
+            </div>
+          </Card>
+
+          <Card className="p-4 bg-white shadow-sm border-0">
+            <div className="flex flex-col items-center space-y-2">
+              <div className="p-2 bg-purple-100 rounded-lg">
+                <Icon name="Users" size={24} className="text-purple-600" />
+              </div>
+              <span className="text-sm font-medium text-gray-700">Соц. контакты</span>
+              <span className="text-lg font-bold text-gray-900">65%</span>
+              <Progress value={65} className="h-2 w-full" />
+            </div>
           </Card>
         </div>
+
+        {/* Habits Card */}
+        <Card className="p-4 bg-white shadow-sm border-0">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 bg-indigo-100 rounded-lg">
+                <Icon name="CheckCircle" size={20} className="text-indigo-600" />
+              </div>
+              <span className="text-sm font-medium text-gray-700">Привычки</span>
+            </div>
+            <span className="text-lg font-bold text-gray-900">90%</span>
+          </div>
+          <Progress value={90} className="h-2" />
+          <p className="text-xs text-gray-500 mt-2">5 из 6 привычек выполнено сегодня</p>
+        </Card>
 
         {/* Main Action Button */}
         <div className="pt-6 pb-8">
